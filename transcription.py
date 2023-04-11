@@ -3,6 +3,7 @@ from pyannote.audio import Pipeline
 from pydub import AudioSegment
 import whisper
 
+import config as cfg
 
 def millisec(timeStr):
   spl = timeStr.split(":")
@@ -31,7 +32,7 @@ def get_transcription(src):
   audio.export(src+'.wav', format='wav')
   # diarization
   pipeline = Pipeline.from_pretrained('pyannote/speaker-diarization', 
-                                      use_auth_token='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')
+                                      use_auth_token=cfg.hf_token)
   dz = str(pipeline({'uri': 'blabal', 'audio': src+'.wav'})).split('\n')
   wsp = get_whisper_result(src)
   dzList = []
